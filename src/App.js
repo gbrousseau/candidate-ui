@@ -5,6 +5,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import {Navbar} from "react-bootstrap";
+import Dashboard from './components/Dashboard';
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -19,19 +21,25 @@ export default function BasicExample() {
   return (
     <Router>
       <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-        </ul>
-
-        <hr />
+        <Navbar bg="light" expand="lg">
+          <Navbar.Brand href="/">
+            <img alt="Upkeep"
+                 src="logo-header-879eb71927803a4988b97d045e177be0.svg"
+                 width="296"
+                 height="55"
+                 className="d-inline-block align-top"/>
+          </Navbar.Brand>
+          <Navbar bg="light">
+            <Navbar.Brand href="/">Home</Navbar.Brand>
+          </Navbar>
+          <Navbar bg="light">
+            <Navbar.Brand href="/about">About</Navbar.Brand>
+          </Navbar>
+          <Navbar bg="light">
+            <Navbar.Brand href="/dashboard">Dashboard</Navbar.Brand>
+          </Navbar>
+          <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+        </Navbar>
 
         {/*
           A <Switch> looks through all its children <Route>
@@ -71,14 +79,6 @@ function About() {
   return (
     <div>
       <h2>About</h2>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
     </div>
   );
 }
