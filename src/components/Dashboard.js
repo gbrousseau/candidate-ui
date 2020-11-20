@@ -22,7 +22,6 @@ class Dashboard extends Component {
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(result.data.workOrders);
           this.setState({
             isLoaded: true,
             data: result.data.workOrders,
@@ -39,7 +38,6 @@ class Dashboard extends Component {
 
   render() {
     const { error, isLoaded, data, columns } = this.state;
-    console.log(data);
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -60,7 +58,6 @@ class Dashboard extends Component {
             </tr>
             </thead>
             <tbody>
-
             {data.map(value =>
               <tr>
                 <th><Link to={"/workorder/" + value.id} style={linkStyle}>{value.id}</Link></th>
@@ -74,7 +71,6 @@ class Dashboard extends Component {
           )}
             </tbody>
           </table>
-
         </div>
       );
     }
