@@ -64,7 +64,7 @@ export default function BasicExample() {
 function Home() {
   return (
     <div style={Style}>
-      <h2>Home</h2>
+      <h2>No current data for home</h2>
     </div>
   );
 }
@@ -143,9 +143,9 @@ function About() {
           </dd>
           <dd className="org-page-details__employees-on-linkedin-count t-14 t-black--light mb5">
             114 on LinkedIn
-              <div id="artdeco-gen-43" className="ember-view">
-                <div id="ember1264" className="ember-view" />
-              </div>
+            <div id="artdeco-gen-43" className="ember-view">
+              <div id="ember1264" className="ember-view" />
+            </div>
           </dd>
 
           <dt className="org-page-details__definition-term t-14 t-black t-bold">

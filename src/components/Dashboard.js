@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Moment from 'moment';
 import { Link } from 'react-router-dom';
 
-const Style = {margin: "50px 50px 0px 100px",width:"auto",textAlign:"left"};
-const linkStyle = {color: "#ff3b30"}
+const Style = { margin: '50px 50px 0px 100px', width: 'auto', textAlign: 'left' };
+const linkStyle = { color: '#ff3b30' };
 
 class Dashboard extends Component {
   constructor(props) {
@@ -13,12 +13,12 @@ class Dashboard extends Component {
       error: null,
       isLoaded: false,
       data: {},
-      columns: []
+      columns: [],
     };
   }
 
   componentDidMount() {
-    fetch("http://localhost:8080/api/workorders")
+    fetch('http://localhost:8080/api/workorders')
       .then(res => res.json())
       .then(
         (result) => {
@@ -30,14 +30,14 @@ class Dashboard extends Component {
         (error) => {
           this.setState({
             isLoaded: true,
-            error
+            error,
           });
-        }
-      )
+        },
+      );
   }
 
   render() {
-    const { error, isLoaded, data, columns } = this.state;
+    const { error, isLoaded, data } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -58,17 +58,17 @@ class Dashboard extends Component {
             </tr>
             </thead>
             <tbody>
-            {data.map(value =>
-              <tr>
-                <th><Link to={"/workorder/" + value.id} style={linkStyle}>{value.id}</Link></th>
-                <th>{value.title}</th>
-                <td>{value.location[0].name}</td>
-                <td>{Moment(value.updatedAt).format("MMMM Do YYYY, h:mm:ss a")}</td>
-                <td>{Moment(value.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</td>
+            {data.map((value,i) =>
+              <tr key={i}>
+                <th><a href={'/workorder/' + value.id} data-testid={'row'+ i + '-id'} style={linkStyle}>{value.id}</a></th>
+                <th data-testid={'row'+ i + '-title'}>{value.title}</th>
+                <td>{value.location[0].name || "No location data"}</td>
+                <td>{Moment(value.updatedAt).format('MMMM Do YYYY, h:mm:ss a')}</td>
+                <td>{Moment(value.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</td>
                 <td>{value.priority}</td>
-                <td>{value.status}</td>
-              </tr>
-          )}
+                <td data-testid={'row'+ i + '-status'}>{value.status}</td>
+              </tr>,
+            )}
             </tbody>
           </table>
         </div>
