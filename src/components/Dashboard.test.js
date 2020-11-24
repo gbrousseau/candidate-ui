@@ -68,3 +68,61 @@ test('renders work orders list in dashboard', async () => {
 
   global.fetch.mockRestore();
 });
+
+test('Matches snapshot', async() => {
+  let tree = null;
+  const fakeWorkOrders =
+    {
+      'data': {
+        'workOrders': [
+          {
+            'id': 'k3qoOGdq0B',
+            'title': 'Measure Strap length',
+            'description': 'Test description',
+            'priority': 'MEDIUM',
+            'status': 'OPEN',
+            "updatedAt": "2020-04-26T18:16:00.399Z",
+            "createdAt": "2020-04-26T18:16:00.399Z",
+            'location': [
+              {
+                'id': 'DrwFuwsjt0',
+                'name': 'Long Beach Convention Center',
+                'address': '300 E Ocean Blvd, Long Beach, CA 90802, USA',
+                '__typename': 'Location',
+              },
+            ],
+          }, {
+            'id': 'fzXzwxgHMC',
+            'rootId': null,
+            'number': '036',
+            'title': 'gary admin delete test',
+            'description': null,
+            'priority': 'HIGH',
+            'status': 'IN_PROGRESS',
+            "updatedAt": "2020-04-02T17:44:25.037Z",
+            "createdAt": "2020-04-02T17:00:14.735Z",
+            'location': [
+              {
+                'id': 'DrwFuwsjt0',
+                'name': 'Long Beach Convention Center',
+                'address': '300 E Ocean Blvd, Long Beach, CA 90802, USA',
+                '__typename': 'Location',
+              },
+            ]
+          }
+        ]
+      }
+    };
+
+  jest.spyOn(global, "fetch").mockImplementation(() =>
+    Promise.resolve({
+      json: () => Promise.resolve(fakeWorkOrders)
+    })
+  );
+  await act(async () => {
+
+    tree = await render(<Dashboard />);
+  });
+
+  expect(tree).toMatchSnapshot();
+});
