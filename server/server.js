@@ -20,7 +20,6 @@ app.get('/api/workorders', function(req, res) {
 //work order details
 app.get('/api/workorders/:id', function(req, res) {
   let ret = {error: "No work order for that id"};
-
   workOrders.data.workOrders.forEach((value) => {
     if(value.id === req.params.id){
       ret = value;

@@ -8,5 +8,4 @@ test('renders correctly', () => {
   getByText("Home");
   getByText("Dashboard");
   getByText("About")
-
 });

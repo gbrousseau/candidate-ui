@@ -9,7 +9,7 @@ import { Navbar } from 'react-bootstrap';
 import Dashboard from './components/Dashboard';
 import WorkOrder from './components/WorkOrder';
 
-const Style = { margin: '50px 50px 0px 100px', width: 'auto', textAlign: 'left' };
+const appStyle = { margin: '50px 50px 0px 100px', width: 'auto', textAlign: 'left' };
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -63,15 +63,15 @@ export default function BasicExample() {
 
 function Home() {
   return (
-    <div style={Style}>
-      <h2>No current data for home</h2>
+    <div style={ appStyle }>
+      <h2>Nothing here</h2>
     </div>
   );
 }
 
 function About() {
   return (
-    <div className="column-content col" style={Style}>
+    <div className="column-content col" style={ appStyle }>
       <section className="artdeco-card p4 mb3">
         <h4 className="t-18 t-black t-normal mb2">
           Overview

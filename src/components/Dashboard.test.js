@@ -1,21 +1,11 @@
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
+import { render} from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import Dashboard from './Dashboard';
 
 let container = null;
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
 
-afterEach(() => {
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
-
-it('renders work orders in dashboard', async () => {
+test('renders work orders list in dashboard', async () => {
   const fakeWorkOrders =
     {
       'data': {
@@ -62,17 +52,19 @@ it('renders work orders in dashboard', async () => {
       json: () => Promise.resolve(fakeWorkOrders),
     }),
   );
+
   await act(async () => {
 
-    render(<Dashboard />, container);
+    container = render(<Dashboard />);
   });
 
-  expect(container.querySelector('[data-testid=\'row0-id\']').textContent).toBe(fakeWorkOrders.data.workOrders[0].id);
-  expect(container.querySelector('[data-testid=\'row0-title\']').textContent).toBe(fakeWorkOrders.data.workOrders[0].title);
-  expect(container.querySelector('[data-testid=\'row0-status\']').textContent).toContain(fakeWorkOrders.data.workOrders[0].status);
+  expect(container.getByTestId('row0-id').textContent).toBe(fakeWorkOrders.data.workOrders[0].id);
+  expect(container.getByTestId('row0-title').textContent).toBe(fakeWorkOrders.data.workOrders[0].title);
+  expect(container.getByTestId('row0-status').textContent).toContain(fakeWorkOrders.data.workOrders[0].status);
 
-  expect(container.querySelector('[data-testid=\'row1-id\']').textContent).toBe(fakeWorkOrders.data.workOrders[1].id);
-  expect(container.querySelector('[data-testid=\'row1-title\']').textContent).toBe(fakeWorkOrders.data.workOrders[1].title);
-  expect(container.querySelector('[data-testid=\'row1-status\']').textContent).toContain(fakeWorkOrders.data.workOrders[1].status);
+  expect(container.getByTestId('row1-id').textContent).toBe(fakeWorkOrders.data.workOrders[1].id);
+  expect(container.getByTestId('row1-title').textContent).toBe(fakeWorkOrders.data.workOrders[1].title);
+  expect(container.getByTestId('row1-status').textContent).toContain(fakeWorkOrders.data.workOrders[1].status);
+
   global.fetch.mockRestore();
 });
